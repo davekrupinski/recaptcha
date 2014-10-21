@@ -25,7 +25,7 @@ module Recaptcha
         Timeout::timeout(options[:timeout] || 3) do
           recaptcha = http.post_form(URI.parse(Recaptcha.configuration.verify_url), {
             "privatekey" => private_key,
-            "remoteip"   => request.remote_ip,
+            "remoteip"   => params[:recaptcha_remote_ip] || request.remote_ip,
             "challenge"  => params[:recaptcha_challenge_field],
             "response"   => params[:recaptcha_response_field]
           })
